@@ -1,0 +1,27 @@
+# Python
+__pycache__/
+*.pyc
+.Python
+venv/
+.venv/
+env/
+
+# Dataset & outputs — never commit these to a public repo
+data/*
+!data/.gitkeep
+
+outputs/*
+!outputs/.gitkeep
+
+# Model checkpoints
+*.pt
+*.pth
+*.ckpt
+
+# OS / Editor
+.DS_Store
+.vscode/
+.idea/
+
+# Just in case any notebooks sneak in
+.ipynb_checkpoints/
