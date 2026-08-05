@@ -126,22 +126,3 @@ class DiT(nn.Module):
 
         x = self.final_layer(x, c)
         return self.unpatchify(x)
-
-
-if __name__ == '__main__':
-    from config import get_config
-
-    config = get_config()
-    model = DiT(config)
-
-    x = torch.randn(2, config['channels'], config['image_size'], config['image_size'])
-    t = torch.randint(0, config['timesteps'], (2,))
-
-    out = model(x, t)
-    print('Input shape:', x.shape)
-    print('Output shape:', out.shape)
-    assert out.shape == x.shape, f"MISMATCH: {out.shape} vs {x.shape}"
-    print('Shapes match!')
-
-    total_params = sum(p.numel() for p in model.parameters())
-    print(f'Total parameters: {total_params / 1e6:.2f}M')
