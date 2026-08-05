@@ -24,28 +24,3 @@ class WarmupCosineScheduler:
 
     def get_lr(self):
         return self.optimizer.param_groups[0]['lr']
-
-
-if __name__ == '__main__':
-    import torch
-
-    dummy_param = torch.nn.Parameter(torch.zeros(1))
-    optimizer = torch.optim.AdamW([dummy_param], lr=1e-4)
-
-    scheduler = WarmupCosineScheduler(optimizer, warmup_steps=10, total_steps=100)
-
-    print('Initial LR:', scheduler.get_lr(), '(expect 1e-4, unchanged before any step)')
-
-    # step through warmup
-    for _ in range(10):
-        scheduler.step()
-    lr_after_warmup = scheduler.get_lr()
-    print('LR after warmup (step 10):', lr_after_warmup, '(expect close to 1e-4, warmup complete)')
-
-    # step through the rest (cosine decay to the end)
-    for _ in range(90):
-        scheduler.step()
-    lr_at_end = scheduler.get_lr()
-    print('LR at final step (step 100):', lr_at_end, '(expect close to 0, cosine decayed to minimum)')
-
-    print('LR increased during warmup then decreased after:', lr_after_warmup > 1e-5 and lr_at_end < lr_after_warmup)

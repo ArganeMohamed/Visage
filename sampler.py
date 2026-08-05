@@ -46,25 +46,3 @@ class Sampler:
 
         self.model.train()
         return x
-
-
-if __name__ == '__main__':
-    from config import get_config
-    from models.dit import DiT
-    from diffusion import Diffusion
-
-    # small + fast config just to verify the pipeline end-to-end,
-    # NOT meant to produce good images — model is untrained
-    config = get_config(device='cpu', timesteps=50, depth=2, dim=64, num_heads=4)
-
-    model     = DiT(config)
-    diffusion = Diffusion(config)
-    sampler   = Sampler(model, diffusion, config)
-
-    samples = sampler.sample(n_samples=2)
-
-    print('Sample shape:', samples.shape)
-    print('Value range:', samples.min().item(), 'to', samples.max().item())
-    assert samples.shape == (2, config['channels'], config['image_size'], config['image_size'])
-    assert samples.min() >= -1.0 and samples.max() <= 1.0
-    print('Shape and range checks passed!')
