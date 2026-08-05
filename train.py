@@ -110,27 +110,3 @@ def train(
             print(f"Saved checkpoint -> {ckpt_path}")
 
     return model, ema
-
-
-if __name__ == '__main__':
-    import argparse
-
-    parser = argparse.ArgumentParser()
-    parser.add_argument('--data_path', type=str, required=True)
-    parser.add_argument('--output_path', type=str, default='./outputs')
-    parser.add_argument('--epochs', type=int, default=1)
-    parser.add_argument('--batch_size', type=int, default=4)
-    parser.add_argument('--device', type=str, default='cuda')
-    parser.add_argument('--max_batches_per_epoch', type=int, default=None)
-    parser.add_argument('--sample_every', type=int, default=1)
-    args = parser.parse_args()
-
-    train(
-        data_path=args.data_path,
-        output_path=args.output_path,
-        epochs=args.epochs,
-        batch_size=args.batch_size,
-        device=args.device,
-        max_batches_per_epoch=args.max_batches_per_epoch,
-        sample_every=args.sample_every
-    )

@@ -32,18 +32,3 @@ def generate(checkpoint_path, output_path='./outputs', n_samples=16, **config_ov
     print(f"Saved -> {img_path}")
     return img_path
 
-
-if __name__ == '__main__':
-    parser = argparse.ArgumentParser()
-    parser.add_argument('--checkpoint', type=str, required=True)
-    parser.add_argument('--output_path', type=str, default='./outputs')
-    parser.add_argument('--n_samples', type=int, default=16)
-    parser.add_argument('--device', type=str, default='cuda')
-    args = parser.parse_args()
-
-    generate(
-        checkpoint_path=args.checkpoint,
-        output_path=args.output_path,
-        n_samples=args.n_samples,
-        device=args.device
-    )
